@@ -53,8 +53,8 @@ module Dredd
         @runner = Dredd::Rack::Runner.new(ENV['API_HOST'])
 
         desc description unless ::Rake.application.last_comment
-        rake_task = task name, *args do |task_args|
-          task_block.call(*[self, task_args].slice(0, task_block.arity)) if task_block
+        rake_task = task name, *args do |task, args|
+          task_block.call(*[self, args].slice(0, task_block.arity)) if task_block
           run_task(runner)
         end
 
